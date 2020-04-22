@@ -47,18 +47,20 @@ manager: "wpickett"
 
 ## The DateTimeOffset structure
 
-The <xref:System.DateTimeOffset> structure represents a date and time value, together with an offset that indicates how much that value differs from UTC. Thus, the value always unambiguously identifies a single point in time.
+The <xref:System.DateTimeOffset> structure is the most important type in .NET to represents a date and time value, together with an offset that indicates how much that value differs from UTC. Thus, the value always unambiguously identifies a single point in time and should therefore be considered as the default date and time type for the general application development, working files, communication with external APIs and databases.
+
+> [!IMPORTANT]
+> These uses for <xref:System.DateTimeOffset> values are much more common than those for <xref:System.DateTime> values. As a result, <xref:System.DateTimeOffset> should be considered the default date and time type for application development.
 
 The <xref:System.DateTimeOffset> type includes all of the functionality of the <xref:System.DateTime> type along with time zone awareness. This makes it is suitable for applications that do the following:
 
 * Uniquely and unambiguously identify a single point in time. The <xref:System.DateTimeOffset> type can be used to unambiguously define the meaning of "now", to log transaction times, to log the times of system or application events, and to record file creation and modification times.
 
+* Retrieve date and time information from sources outside of .NET, such as files, SQL databases and APIs like REST, gRPC and more. Typically, these sources store date and time information in a simple format that is compatible with the <xref:System.DateTimeOffset> structure.
+
 * Perform general date and time arithmetic.
 
 * Preserve multiple related times, as long as those times are stored as two separate values or as two members of a structure.
-
-> [!NOTE]
-> These uses for <xref:System.DateTimeOffset> values are much more common than those for <xref:System.DateTime> values. As a result, <xref:System.DateTimeOffset> should be considered the default date and time type for application development.
 
 A <xref:System.DateTimeOffset> value is not tied to a particular time zone, but can originate from any of a variety of time zones. To illustrate this, the following example lists the time zones to which a number of <xref:System.DateTimeOffset> values (including a local Pacific Standard Time) can belong.
 
@@ -82,8 +84,6 @@ The <xref:System.DateTime> structure is suitable for applications that do the fo
 * Work with dates and times for which time zone information is missing.
 
 * Work with UTC dates and times only.
-
-* Retrieve date and time information from sources outside of .NET, such as SQL databases. Typically, these sources store date and time information in a simple format that is compatible with the <xref:System.DateTime> structure.
 
 * Perform date and time arithmetic, but are concerned with general results. For example, in an addition operation that adds six months to a particular date and time, it is often not important whether the result is adjusted for daylight saving time.
 
