@@ -49,9 +49,6 @@ manager: "wpickett"
 
 The <xref:System.DateTimeOffset> structure is the most important type in .NET to represents a date and time value, together with an offset that indicates how much that value differs from UTC. Thus, the value always unambiguously identifies a single point in time and should therefore be considered as the default date and time type for the general application development, working files, communication with external APIs and databases.
 
-> [!IMPORTANT]
-> These uses for <xref:System.DateTimeOffset> values are much more common than those for <xref:System.DateTime> values. As a result, <xref:System.DateTimeOffset> should be considered the default date and time type for application development.
-
 The <xref:System.DateTimeOffset> type includes all of the functionality of the <xref:System.DateTime> type along with time zone awareness. This makes it is suitable for applications that do the following:
 
 * Uniquely and unambiguously identify a single point in time. The <xref:System.DateTimeOffset> type can be used to unambiguously define the meaning of "now", to log transaction times, to log the times of system or application events, and to record file creation and modification times.
@@ -63,6 +60,9 @@ The <xref:System.DateTimeOffset> type includes all of the functionality of the <
 * Preserve multiple related times, as long as those times are stored as two separate values or as two members of a structure.
 
 A <xref:System.DateTimeOffset> value is not tied to a particular time zone, but can originate from any of a variety of time zones. To illustrate this, the following example lists the time zones to which a number of <xref:System.DateTimeOffset> values (including a local Pacific Standard Time) can belong.
+
+> [!IMPORTANT]
+> These uses for <xref:System.DateTimeOffset> values are much more common than those for <xref:System.DateTime> values. As a result, <xref:System.DateTimeOffset> should be considered the default date and time type for application development.
 
 [!code-csharp[System.DateTimeOffset.Conceptual#1](../../../samples/snippets/csharp/VS_Snippets_CLR_System/system.DateTimeOffset.Conceptual/cs/Conceptual1.cs#1)]
 [!code-vb[System.DateTimeOffset.Conceptual#1](../../../samples/snippets/visualbasic/VS_Snippets_CLR_System/system.DateTimeOffset.Conceptual/vb/Conceptual1.vb#1)]
