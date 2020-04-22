@@ -37,31 +37,6 @@ ms.assetid: 07f17aad-3571-4014-9ef3-b695a86f3800
 > [!NOTE]
 > This topic doesn't discuss <xref:System.TimeZone> because its functionality is almost entirely incorporated in the <xref:System.TimeZoneInfo> class. Whenever possible, use the <xref:System.TimeZoneInfo> class instead of the <xref:System.TimeZone> class.
 
-## The DateTime structure
-
-A <xref:System.DateTime> value defines a particular date and time. It includes a <xref:System.DateTime.Kind%2A> property that provides limited information about the time zone to which that date and time belongs. The <xref:System.DateTimeKind> value returned by the <xref:System.DateTime.Kind%2A> property indicates whether the <xref:System.DateTime> value represents the local time (<xref:System.DateTimeKind.Local?displayProperty=nameWithType>), Coordinated Universal Time (UTC) (<xref:System.DateTimeKind.Utc?displayProperty=nameWithType>), or an unspecified time (<xref:System.DateTimeKind.Unspecified?displayProperty=nameWithType>).
-
-The <xref:System.DateTime> structure is suitable for applications that do the following:
-
-- Work with dates only.
-
-- Work with times only.
-
-- Work with abstract dates and times.
-
-- Work with dates and times for which time zone information is missing.
-
-- Work with UTC dates and times only.
-
-- Retrieve date and time information from sources outside of .NET, such as SQL databases. Typically, these sources store date and time information in a simple format that is compatible with the <xref:System.DateTime> structure.
-
-- Perform date and time arithmetic, but are concerned with general results. For example, in an addition operation that adds six months to a particular date and time, it is often not important whether the result is adjusted for daylight saving time.
-
-Unless a particular <xref:System.DateTime> value represents UTC, that date and time value is often ambiguous or limited in its portability. For example, if a <xref:System.DateTime> value represents the local time, it is portable within that local time zone (that is, if the value is deserialized on another system in the same time zone, that value still unambiguously identifies a single point in time). Outside the local time zone, that <xref:System.DateTime> value can have multiple interpretations. If the value's <xref:System.DateTime.Kind%2A> property is <xref:System.DateTimeKind.Unspecified?displayProperty=nameWithType>, it is even less portable: it is now ambiguous within the same time zone and possibly even on the same system on which it was first serialized. Only if a <xref:System.DateTime> value represents UTC does that value unambiguously identify a single point in time regardless of the system or time zone in which the value is used.
-
-> [!IMPORTANT]
-> When saving or sharing <xref:System.DateTime> data, UTC should be used and the <xref:System.DateTime> value's <xref:System.DateTime.Kind%2A> property should be set to <xref:System.DateTimeKind.Utc?displayProperty=nameWithType>.
-
 ## The DateTimeOffset structure
 
 The <xref:System.DateTimeOffset> structure represents a date and time value, together with an offset that indicates how much that value differs from UTC. Thus, the value always unambiguously identifies a single point in time.
@@ -75,7 +50,7 @@ The <xref:System.DateTimeOffset> type includes all of the functionality of the <
 - Preserve multiple related times, as long as those times are stored as two separate values or as two members of a structure.
 
 > [!NOTE]
-> These uses for <xref:System.DateTimeOffset> values are much more common than those for <xref:System.DateTime> values. As a result, <xref:System.DateTimeOffset> should be considered the default date and time type for application development.
+> These uses for <xref:System.DateTimeOffset> values are much more common than those for <xref:System.DateTime> values. As a result, <xref:System.DateTimeOffset> should be considered the default date and time type for application development and to retrieve date and time information from external sources like databases, APIs and files.
 
 A <xref:System.DateTimeOffset> value is not tied to a particular time zone, but can originate from any of a variety of time zones. To illustrate this, the following example lists the time zones to which a number of <xref:System.DateTimeOffset> values (including a local Pacific Standard Time) can belong.
 
@@ -83,6 +58,32 @@ A <xref:System.DateTimeOffset> value is not tied to a particular time zone, but 
 [!code-vb[System.DateTimeOffset.Conceptual#1](../../../samples/snippets/visualbasic/VS_Snippets_CLR_System/system.DateTimeOffset.Conceptual/vb/Conceptual1.vb#1)]
 
 The output shows that each date and time value in this example can belong to at least three different time zones. The <xref:System.DateTimeOffset> value of 6/10/2007 shows that if a date and time value represents a daylight saving time, its offset from UTC does not even necessarily correspond to the originating time zone's base UTC offset or to the offset from UTC found in its display name. This means that, because a single <xref:System.DateTimeOffset> value is not tightly coupled with its time zone, it cannot reflect a time zone's transition to and from daylight saving time. This can be particularly problematic when date and time arithmetic is used to manipulate a <xref:System.DateTimeOffset> value. For a discussion of how to perform date and time arithmetic in a way that takes account of a time zone's adjustment rules, see [Performing arithmetic operations with dates and times](performing-arithmetic-operations.md).
+
+## The DateTime structure
+
+A <xref:System.DateTime> value defines a particular date and time. It includes a <xref:System.DateTime.Kind%2A> property that provides limited information about the time zone to which that date and time belongs. The <xref:System.DateTimeKind> value returned by the <xref:System.DateTime.Kind%2A> property indicates whether the <xref:System.DateTime> value represents the local time (<xref:System.DateTimeKind.Local?displayProperty=nameWithType>), Coordinated Universal Time (UTC) (<xref:System.DateTimeKind.Utc?displayProperty=nameWithType>), or an unspecified time (<xref:System.DateTimeKind.Unspecified?displayProperty=nameWithType>).
+
+> [!IMPORTANT]
+> When saving or sharing <xref:System.DateTime> data, UTC should be used and the <xref:System.DateTime> value's <xref:System.DateTime.Kind%2A> property should be set to <xref:System.DateTimeKind.Utc?displayProperty=nameWithType>.
+
+The <xref:System.DateTime> structure is suitable for applications that do the following:
+
+- Work with dates only.
+
+- Work with times only.
+
+- Work with abstract dates and times.
+
+- Work with dates and times for which time zone information is missing.
+
+- Work with UTC dates and times only.
+
+- Perform date and time arithmetic, but are concerned with general results. For example, in an addition operation that adds six months to a particular date and time, it is often not important whether the result is adjusted for daylight saving time.
+
+Unless a particular <xref:System.DateTime> value represents UTC, that date and time value is often ambiguous or limited in its portability. For example, if a <xref:System.DateTime> value represents the local time, it is portable within that local time zone (that is, if the value is deserialized on another system in the same time zone, that value still unambiguously identifies a single point in time). Outside the local time zone, that <xref:System.DateTime> value can have multiple interpretations. If the value's <xref:System.DateTime.Kind%2A> property is <xref:System.DateTimeKind.Unspecified?displayProperty=nameWithType>, it is even less portable: it is now ambiguous within the same time zone and possibly even on the same system on which it was first serialized. Only if a <xref:System.DateTime> value represents UTC does that value unambiguously identify a single point in time regardless of the system or time zone in which the value is used.
+
+> [!Note]
+> For general development with date and time information, <xref:System.DateTimeOffset> is recommended both within the application and for working with APIs, files like XML or JSON and databases.
 
 ## The TimeSpan structure
 
